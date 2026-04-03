@@ -691,7 +691,7 @@ function updateVerdict(){
     document.getElementById('v-sub').textContent=`E=${edge.toFixed(2)} < ${emin} — Attends un meilleur setup`;
     document.getElementById('v-cat').innerHTML=`<span class="v-cat cat-c">CATÉGORIE C</span>`;
   } else if(cat==='B'){
-  2 box.className='verdict-box wait';
+    box.className='verdict-box wait';
     document.getElementById('v-emoji').textContent='⚠️';
     document.getElementById('v-text').textContent='POSSIBLE — TAILLE RÉDUITE';
     document.getElementById('v-sub').textContent=`E=${edge.toFixed(2)} | R:R=${rr.toFixed(2)} — Max 0.5-1% du capital`;
@@ -844,7 +844,7 @@ function closeT(result){
   document.getElementById('c-lesson').value='';
   S.closeEmo=null;
   document.querySelectorAll('#close-emo .emo-btn').forEach(b=>b.classList.remove('selected'));
-  const msg=result==='W'?`0��� WIN ! +${gl.toFixed(2)}€\nCapital : ${open.capAfter.toFixed(2)}€`:`📉 LOSS. ${gl.toFixed(2)}€\nCapital : ${open.capAfter.toFixed(2)}€`;
+  const msg=result==='W'?`🎉 WIN ! +${gl.toFixed(2)}€\nCapital : ${open.capAfter.toFixed(2)}€`:`📉 LOSS. ${gl.toFixed(2)}€\nCapital : ${open.capAfter.toFixed(2)}€`;
   alert(msg);
   updateBilan();
 }
@@ -869,7 +869,7 @@ function renderHistory(){
       <div class="tc-stats">
         <div><div class="tc-stat-lbl">Setup</div><div class="tc-stat-val" style="font-size:10px">${t.dir} ${t.setup}</div></div>
         <div><div class="tc-stat-lbl">Score</div><div class="tc-stat-val">${t.score}/5</div></div>
-     0  <div><div class="tc-stat-lbl">R:R</div><div class="tc-stat-val">${t.rr.toFixed(1)}</div></div>
+        <div><div class="tc-stat-lbl">R:R</div><div class="tc-stat-val">${t.rr.toFixed(1)}</div></div>
         <div><div class="tc-stat-lbl">Edge</div><div class="tc-stat-val" style="color:${t.edge>=1.2?'var(--green)':'var(--red)'}">${t.edge.toFixed(2)}</div></div>
       </div>
       ${t.status==='closed'?`
