@@ -1,65 +1,43 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="SteeTrader">
-<meta name="theme-color" content="#00d4ff">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/icon-152x152.png">
-<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512x512.png">
-<title>SteeTrader</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:#080c14;--bg2:#0d1420;--bg3:#111b2e;--panel:#0a1628;
-  --border:#1e3a5f;--accent:#00d4ff;--gold:#ffd700;
-  --green:#00ff9d;--red:#ff4e6a;--orange:#ff9a3c;
-  --white:#e8f4ff;--muted:#4a7fa5;--text:#c8dff0;
-  --glow:0 0 20px rgba(0,212,255,0.3);
-  --glow-red:0 0 20px rgba(255,78,106,0.3);
-  --glow-green:0 0 20px rgba(0,255,157,0.3);
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden}
-body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden}
+.section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+.stitle{font-family:'Orbitron',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.stitle::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
 
-.app{position:relative;z-index:1;display:flex;flex-direction:column;height:100%;max-width:900px;margin:0 auto;width:100%}
+/* DIRECTION */
+.dir-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.dir-btn{padding:14px;border-radius:10px;border:2px solid var(--border);background:var(--bg2);color:var(--muted);font-family:'Orbitron',monospace;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;text-align:center}
+.dir-btn.long:hover,.dir-btn.long.active{background:rgba(0,255,157,0.1);border-color:var(--green);color:var(--green);box-shadow:var(--glow-green)}
+.dir-btn.short:hover,.dir-btn.short.active{background:rgba(255,78,106,0.1);border-color:var(--red);color:var(--red);box-shadow:var(--glow-red)}
 
-/* HEADER */
-.header{padding:10px 14px;background:linear-gradient(135deg,var(--panel),var(--bg3));border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative}
-.header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
-.logo{font-family:'Orbitron',monospace;font-weight:900;font-size:18px;color:var(--accent);text-shadow:var(--glow);letter-spacing:2px}
-.logo span{color:var(--gold)}
-.hdr-right{display:flex;align-items:center;gap:8px}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-.pair{font-family:'Orbitron',monospace;font-size:11px;color:var(--gold)}
-.time-display{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted)}
+/* SETUP GRID */
+.setup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+.setup-btn{padding:8px 4px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--muted);font-family:'Share Tech Mono',monospace;font-size:11px;cursor:pointer;text-align:center;transition:all 0.15s}
+.setup-btn.selected{background:rgba(0,212,255,0.1);border-color:var(--accent);color:var(--accent)}
 
-/* SCROLL AREA */
-.scroll-area{flex:1;overflow-y:auto;padding:10px;-webkit-overflow-scrolling:touch}
-.scroll-area::-webkit-scrollbar{width:3px}
-.scroll-area::-webkit-scrollbar-track{background:var(--bg)}
-.scroll-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:5px}
+.check-item{display:flex;align-items:center;gap:8px;padding:9px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.15s;user-select:none}
+.check-item.checked{background:rgba(0,255,157,0.05);border-color:rgba(0,255,157,0.4)}
+.check-item.bonus-off{background:var(--bg2);border-color:var(--border)}
+.check-item.bonus-on{background:rgba(255,154,60,0.05);border-color:rgba(255,154,60,0.4)}
+.cbox{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.15s;flex-shrink:0}
+.check-item.checked .cbox{background:var(--green);border-color:var(--green);color:#000}
+.check-item.bonus-on .cbox{background:var(--orange);border-color:var(--orange);color:#000}
+.clabel{font-size:12px;font-weight:600;color:var(--text);flex:1;line-height:1.3}
+.cweight{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);background:var(--bg3);padding:2px 5px;border-radius:3px;flex-shrink:0}
+.check-item.checked .cweight{color:var(--green)}
+.check-item.bonus-on .cweight{color:var(--orange)}
+.bonus-divider{font-size:9px;color:var(--muted);font-family:'Orbitron',monospace;letter-spacing:1px;text-transform:uppercase;padding:6px 0 2px;border-top:1px solid var(--border);margin-top:4px}
 
-/* BOTTOM NAV */
-.bottom-nav{flex-shrink:0;display:flex;background:var(--panel);border-top:1px solid var(--border);padding:6px 0;padding-bottom:max(6px,env(safe-area-inset-bottom))}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px;cursor:pointer;color:var(--muted);transition:all 0.2s;border:none;background:none}
-.nav-btn.active{color:var(--accent)}
-.nav-icon{font-size:20px;line-height:1}
-.nav-label{font-family:'Orbitron',monospace;font-size:8px;letter-spacing:0.5px;text-transform:uppercase}
-
-/* PANELS */
-.panel{display:none}
-.panel.active{display:block}
-
-/* SECTION */
-.section{background:linear-gradient(135deg,var(--panel),var(--bg3));border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden}
+/* SCORE CARDS */
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}
+.score-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center;transition:all 0.3s}
+.score-card.green{background:rgba(0,255,157,0.08);border-color:rgba(0,255,157,0.4)}
+.score-card.blue{background:rgba(0,212,255,0.08);border-color:rgba(0,212,255,0.4)}
+.score-card.orange{background:rgba(255,154,60,0.08);border-color:rgba(255,154,60,0.4)}
+.score-card.red{background:rgba(255,78,106,0.08);border-color:rgba(255,78,106,0.4)}
+.sc-label{font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;font-family:'Orbitron',monospace;margin-bottom:3px}
+.sc-value{font-family:'Orbitpx solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden}
 .section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
 .stitle{font-family:'Orbitron',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .stitle::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
@@ -188,9 +166,99 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .open-alert-text{font-family:'Orbitron',monospace;font-size:11px;color:var(--accent);letter-spacing:1px}
 
 select.inp-field{appearance:none;-webkit-appearance:none}
+
+/* ═══════════════════════════════════
+   LOGIN SCREEN
+═══════════════════════════════════ */
+#login-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;
+}
+#login-overlay::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;
+}
+.login-box{
+  position:relative;z-index:1;
+  background:linear-gradient(135deg,var(--panel),var(--bg3));
+  border:1px solid var(--border);border-radius:16px;
+  padding:32px 28px;width:100%;max-width:360px;
+  box-shadow:0 0 40px rgba(0,212,255,0.08);
+}
+.login-logo{
+  font-family:'Orbitron',monospace;font-weight:900;font-size:22px;
+  color:var(--accent);text-shadow:var(--glow);letter-spacing:3px;
+  text-align:center;margin-bottom:6px;
+}
+.login-sub{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--muted);text-align:center;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:28px;
+}
+.login-field-group{margin-bottom:14px}
+.login-label{
+  font-family:'Orbitron',monospace;font-size:8px;
+  color:var(--accent);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:6px;display:block;
+}
+.login-input{
+  width:100%;padding:12px 14px;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:8px;color:var(--white);
+  font-family:'Share Tech Mono',monospace;font-size:14px;
+  outline:none;transition:border-color 0.2s,box-shadow 0.2s;
+  -webkit-appearance:none;
+}
+.login-input:focus{border-color:var(--accent);box-shadow:var(--glow)}
+.login-btn{
+  width:100%;padding:14px;margin-top:8px;
+  background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(0,212,255,0.05));
+  border:1px solid var(--accent);border-radius:10px;
+  color:var(--accent);font-family:'Orbitron',monospace;
+  font-size:12px;font-weight:700;letter-spacing:2px;
+  cursor:pointer;transition:all 0.2s;
+}
+.login-btn:hover{background:rgba(0,212,255,0.2);box-shadow:var(--glow)}
+.login-btn:active{transform:scale(0.98)}
+.login-error{
+  margin-top:12px;padding:10px;
+  background:rgba(255,78,106,0.1);border:1px solid var(--red);
+  border-radius:8px;color:var(--red);
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  text-align:center;display:none;
+}
+.login-error.show{display:block}
+.login-footer{
+  margin-top:20px;text-align:center;
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--muted);letter-spacing:1px;
+}
 </style>
 </head>
 <body>
+
+<!-- LOGIN OVERLAY -->
+<div id="login-overlay">
+  <div class="login-box">
+    <div class="login-logo">STEETRADER</div>
+    <div class="login-sub">Accès sécurisé · XAUUSD</div>
+    <div class="login-field-group">
+      <label class="login-label" for="l-user">Identifiant</label>
+      <input class="login-input" id="l-user" type="text" autocomplete="username" placeholder="identifiant" spellcheck="false" autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="login-field-group">
+      <label class="login-label" for="l-pass">Mot de passe</label>
+      <input class="login-input" id="l-pass" type="password" autocomplete="current-password" placeholder="••••••••••">
+    </div>
+    <button class="login-btn" id="login-btn" onclick="doLogin()">▶ ACCÉDER</button>
+    <div class="login-error" id="login-err">Identifiant ou mot de passe incorrect</div>
+    <div class="login-footer">ACCÈS RÉSERVÉ · USAGE PERSONNEL</div>
+  </div>
+</div>
+
 <div class="app">
 
 <!-- HEADER -->
@@ -206,7 +274,7 @@ select.inp-field{appearance:none;-webkit-appearance:none}
 <!-- SCROLL AREA -->
 <div class="scroll-area" id="scroll-area">
 
-  <!-- ══════════ DÉCISION ══════════ -->
+  <!-- ════════ DÉCISION ════════ -->
   <div id="tab-decision" class="panel active">
 
     <div class="section">
@@ -246,7 +314,7 @@ select.inp-field{appearance:none;-webkit-appearance:none}
         </div>
         <div class="bonus-divider">Confluences bonus</div>
         <div class="check-item bonus-off" onclick="toggleBonus(this)" data-w="0.5" data-type="bonus">
-          <div class="cbox">+</div><div class="clabel">RVOL > 1.5 — Confirmation institutionnelle</div><div class="cweight">+0.5</div>
+          <div class="cbox">+</div><div class="clabel">RVOL &gt; 1.5 — Confirmation institutionnelle</div><div class="cweight">+0.5</div>
         </div>
         <div class="check-item bonus-off" onclick="toggleBonus(this)" data-w="0.5" data-type="bonus">
           <div class="cbox">+</div><div class="clabel">Signal MACD pente dans le bon sens</div><div class="cweight">+0.5</div>
@@ -291,7 +359,7 @@ select.inp-field{appearance:none;-webkit-appearance:none}
     <div class="section">
       <div class="stitle">Verdict</div>
       <div class="verdict-box" id="verdict">
-        <div class="v-emoji" id="v-emoji">🧘</div>
+        <div class="v-emoji" id="v-emoji">🎯</div>
         <div class="v-text" id="v-text">EN ATTENTE</div>
         <div class="v-sub" id="v-sub">Complète la checklist pour obtenir un verdict</div>
         <div id="v-cat"></div>
@@ -304,14 +372,14 @@ select.inp-field{appearance:none;-webkit-appearance:none}
           <button class="emo-btn" onclick="setEmo(this,'😰 Anxieux')">😰<br>Anxieux</button>
           <button class="emo-btn" onclick="setEmo(this,'⚡ Impatient')">⚡<br>Impatient</button>
           <button class="emo-btn" onclick="setEmo(this,'😴 Fatigué')">😴<br>Fatigué</button>
-          <button class="emo-btn" onclick="setEmo(this,'🧘 Focalisé')">🧘<br>Focalisé</button>
+          <button class="emo-btn" onclick="setEmo(this,'🎯 Focalisé')">🎯<br>Focalisé</button>
         </div>
       </div>
       <button class="btn btn-primary" onclick="saveTrade()">💾 ENREGISTRER LE TRADE</button>
     </div>
   </div>
 
-  <!-- ══════════ BILAN ══════════ -->
+  <!-- ════════ BILAN ════════ -->
   <div id="tab-bilan" class="panel">
     <div class="section">
       <div class="stitle">Performance globale</div>
@@ -361,7 +429,7 @@ select.inp-field{appearance:none;-webkit-appearance:none}
     </div>
   </div>
 
-  <!-- ══════════ HISTORIQUE ══════════ -->
+  <!-- ════════ HISTORIQUE ════════ -->
   <div id="tab-historique" class="panel">
     <div class="section">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -374,7 +442,7 @@ select.inp-field{appearance:none;-webkit-appearance:none}
     </div>
   </div>
 
-  <!-- ══════════ PARAMÈTRES ══════════ -->
+  <!-- ════════ PARAMÈTRES ════════ -->
   <div id="tab-settings" class="panel">
     <div class="section">
       <div class="stitle">Capital de départ</div>
@@ -393,7 +461,7 @@ select.inp-field{appearance:none;-webkit-appearance:none}
     </div>
     <div class="section">
       <div class="stitle">Données</div>
-      <button class="btn btn-danger" onclick="exportData()">📄 EXPORTER LES TRADES (JSON)</button>
+      <button class="btn btn-danger" onclick="exportData()">📤 EXPORTER LES TRADES (JSON)</button>
       <div style="margin-top:8px;font-size:10px;color:var(--muted);text-align:center">Sauvegarde tes trades pour les analyser avec Claude</div>
     </div>
     <div class="section">
@@ -428,9 +496,37 @@ select.inp-field{appearance:none;-webkit-appearance:none}
 </div><!-- end app -->
 
 <script>
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
+// LOGIN
+// ══════════════════════════
+const _CREDS={u:'bertehio',h:'642dc9515e54e168617f89c7681bb922097359369331d59c6c9d612baa06dbfe'};
+async function _sha256(str){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+async function doLogin(){
+  const u=document.getElementById('l-user').value.trim().toLowerCase();
+  const p=document.getElementById('l-pass').value;
+  const h=await _sha256(p);
+  if(u===_CREDS.u&&h===_CREDS.h){
+    sessionStorage.setItem('st_auth','1');
+    document.getElementById('login-overlay').style.display='none';
+  } else {
+    document.getElementById('login-err').classList.add('show');
+    document.getElementById('l-pass').value='';
+    setTimeout(()=>document.getElementById('login-err').classList.remove('show'),3000);
+  }
+}
+document.getElementById('l-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+document.getElementById('l-user').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('l-pass').focus()});
+// Check session
+if(sessionStorage.getItem('st_auth')==='1'){
+  document.getElementById('login-overlay').style.display='none';
+}
+
+// ═══════════════════════════
 // STATE
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 let S = { dir:null, setup:null, score:0, bonus:0, prob:0, rr:0, edge:0, amount:0, emo:null, closeEmo:null };
 let trades = JSON.parse(localStorage.getItem('st_trades')||'[]');
 let capInit = parseFloat(localStorage.getItem('st_capinit')||'200');
@@ -442,9 +538,9 @@ setInterval(()=>{
   document.getElementById('clock').textContent=n.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
 },1000);
 
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 // TABS
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 const TABS=['decision','bilan','historique','settings'];
 function switchTab(t){
   TABS.forEach(x=>{
@@ -457,9 +553,9 @@ function switchTab(t){
   if(t==='settings') loadSettings();
 }
 
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 // DIRECTION
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 function setDir(d){
   S.dir=d;
   document.getElementById('btn-long').classList.toggle('active',d==='LONG');
@@ -473,9 +569,9 @@ function setSetup(btn,s){
   btn.classList.add('selected');
 }
 
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 // CHECKLIST
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 function toggleCheck(el){
   el.classList.toggle('checked');
   updateScore();
@@ -523,9 +619,9 @@ function updateScore(){
   updateVerdict();
 }
 
-// ════════════════════════════════════════════════════
+// ════════════════════════════
 // CALC RR
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 function calcRR(){
   const cap=parseFloat(document.getElementById('i-cap').value)||0;
   const pct=parseFloat(document.getElementById('i-pct').value)/100||0;
@@ -549,9 +645,9 @@ function calcRR(){
   updateVerdict();
 }
 
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 // VERDICT
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 function updateVerdict(){
   const box=document.getElementById('verdict');
   const emin=settings.emin||1.2;
@@ -560,7 +656,7 @@ function updateVerdict(){
 
   if(sc===0){
     box.className='verdict-box';
-    document.getElementById('v-emoji').textContent='🧘';
+    document.getElementById('v-emoji').textContent='🎯';
     document.getElementById('v-text').textContent='EN ATTENTE';
     document.getElementById('v-sub').textContent='Complète la checklist';
     document.getElementById('v-cat').innerHTML='';
@@ -593,9 +689,9 @@ function updateVerdict(){
   }
 }
 
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 // EMOTIONS
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 function setEmo(btn,e){
   S.emo=e;
   document.querySelectorAll('.emo-grid:not(#close-emo) .emo-btn').forEach(b=>b.classList.remove('selected'));
@@ -607,9 +703,9 @@ function setCloseEmo(btn,e){
   btn.classList.add('selected');
 }
 
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 // SAVE TRADE
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 function saveTrade(){
   if(!S.dir){alert('⚠️ Choisis Long ou Short');return;}
   if(S.score===0){alert('⚠️ Coche au moins un critère');return;}
@@ -647,9 +743,9 @@ function resetForm(){
   updateScore();
 }
 
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 // BILAN
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 function updateBilan(){
   const closed=trades.filter(t=>t.status!=='open');
   const open=trades.find(t=>t.status==='open');
@@ -731,9 +827,9 @@ function closeT(result){
   updateBilan();
 }
 
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 // HISTORY
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 function renderHistory(){
   const list=document.getElementById('trade-list');
   if(!trades.length){
@@ -768,9 +864,9 @@ function renderHistory(){
   `).join('');
 }
 
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 // SETTINGS
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 function loadSettings(){
   document.getElementById('s-capinit').value=capInit;
   document.getElementById('s-emin').value=settings.emin||1.2;
@@ -800,9 +896,9 @@ function clearAll(){
 }
 function saveTrades(){ localStorage.setItem('st_trades',JSON.stringify(trades)); }
 
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 // SERVICE WORKER
-// ════════════════════════════════════════════════════
+// ═══════════════════════════
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
